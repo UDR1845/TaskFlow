@@ -1,0 +1,120 @@
+<div class="container-fluid py-4 px-lg-5">
+
+  <!-- Encabezado -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <span class="text-muted small">GESTIÓN PERSONAL</span>
+      <h2 class="fw-bold mb-1">Mis tareas</h2>
+      <p class="text-muted mb-0">Organiza tus actividades y alcanza tus objetivos.</p>
+    </div>
+
+    <button class="btn btn-primary px-4 py-2"
+            (click)="openCreateForm()">
+      <i class="bi bi-plus-lg me-2"></i>
+      Nueva tarea
+    </button>
+  </div>
+
+  <!-- Estadísticas -->
+  <div class="row g-3 mb-4">
+
+    <div class="col-md-4">
+      <div class="card summary-card border-0 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <p class="text-muted mb-2">Total de tareas</p>
+              <h3 class="fw-bold">{{ tasks().length }}</h3>
+            </div>
+            <div class="summary-icon bg-primary-subtle text-primary">
+              <i class="bi bi-list-check"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card summary-card border-0 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <p class="text-muted mb-2">Pendientes</p>
+              <h3 class="fw-bold">{{ pendingTasks() }}</h3>
+            </div>
+            <div class="summary-icon bg-warning-subtle text-warning">
+              <i class="bi bi-clock-history"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card summary-card border-0 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <p class="text-muted mb-2">Completadas</p>
+              <h3 class="fw-bold">{{ completedTasks() }}</h3>
+            </div>
+            <div class="summary-icon bg-success-subtle text-success">
+              <i class="bi bi-check-circle"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Filtros -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+      <div class="row g-3 align-items-center">
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Estado</label>
+          <select class="form-select"
+                  [value]="filter()"
+                  (change)="filter.set($any($event.target).value)">
+            <option value="Todas">Todas las tareas</option>
+            <option value="Pendientes">Pendientes</option>
+            <option value="Completadas">Completadas</option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Prioridad</label>
+          <select class="form-select"
+                  [value]="priorityFilter()"
+                  (change)="priorityFilter.set($any($event.target).value)">
+            <option value="Todas">Todas las prioridades</option>
+            <option value="Alta">Alta</option>
+            <option value="Media">Media</option>
+            <option value="Baja">Baja</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Listado -->
+  <app-task-list
+    [tasks]="filteredTasks()"
+    (edit)="openEditForm($event)"
+    (delete)="deleteTask($event)"
+    (toggle)="toggleTask($event)">
+  </app-task-list>
+
+</div>
+
+<!-- Formulario -->
+@if (showForm()) {
+  <app-task-form
+    [task]="selectedTask()"
+    (save)="saveTask($event)"
+    (cancel)="closeForm()">
+  </app-task-form>
+}
