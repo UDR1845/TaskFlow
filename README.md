@@ -1,88 +1,102 @@
-# TaskFlow - Gestor de Tareas
+# TaskFlow – Gestor de Tareas
 
-Aplicación web desarrollada con Angular y Bootstrap que permite
-organizar actividades personales mediante el registro, edición,
-eliminación y seguimiento de tareas.
+**TaskFlow** es una aplicación web desarrollada con Angular que permite organizar actividades personales mediante la creación, consulta, edición y eliminación de tareas.
 
-## Tecnologías utilizadas
+El proyecto forma parte del Producto Académico N.º 1 de Ingeniería de Software II.
 
-- Angular
-- TypeScript
-- Bootstrap 5
-- Bootstrap Icons
-- SCSS
-- LocalStorage
+## Objetivo
+
+Desarrollar una aplicación web sencilla e intuitiva que facilite la organización y el seguimiento de tareas personales.
 
 ## Funcionalidades
 
-- Registrar nuevas tareas.
-- Consultar tareas registradas.
+- Registrar tareas con título, descripción y prioridad.
+- Visualizar las tareas registradas.
 - Editar información de las tareas.
 - Eliminar tareas.
-- Marcar tareas como completadas.
-- Filtrar por estado y prioridad.
-- Almacenar información en el navegador.
+- Marcar tareas como pendientes o completadas.
+- Filtrar tareas por estado y prioridad.
+- Guardar información en LocalStorage para conservarla al recargar la página.
 
-## Requisitos previos
+## Tecnologías utilizadas
 
-- Node.js
-- npm
-- Angular CLI
+- Angular 21.1.0
+- TypeScript
+- HTML5 y SCSS
+- Bootstrap 5
+- Bootstrap Icons
+- LocalStorage
+- Git y GitHub
+- GitHub Actions
+- GitHub Pages
+
+## Requisitos
+
+- Node.js compatible con Angular CLI.
+- npm.
+- Angular CLI 21.1.0.
 
 ## Instalación
 
 Clonar el repositorio:
 
-    git clone URL_DEL_REPOSITORIO
-
-Ingresar al proyecto:
-
-    cd TaskFlow
+```bash
+git clone https://github.com/UDR1845/TaskFlow.git
+cd TaskFlow
+```
 
 Instalar dependencias:
 
-    npm install
+```bash
+npm install
+```
 
-## Ejecución
+## Ejecución local
 
-Iniciar el servidor de desarrollo:
-
-    ng serve
+```bash
+ng serve
+```
 
 Abrir en el navegador:
 
-    http://localhost:4200/
+`http://localhost:4200/`
 
 ## Compilación
 
-    ng build
+```bash
+npm run build
+```
 
-## Almacenamiento
+Los archivos compilados se generan en el directorio `dist/`.
 
-TaskFlow utiliza LocalStorage para conservar las tareas
-en el navegador del usuario.
+## Persistencia
 
-## Estructura general
+La aplicación utiliza LocalStorage del navegador. No requiere un servidor ni una base de datos externa.
 
-    src/
-      app/
-        core/
-          models/
-          services/
-        features/
-          tasks/
-            components/
-            pages/
-        shared/
+## Integración continua
 
-## Despliegue
+GitHub Actions ejecuta automáticamente la instalación de dependencias y la compilación de Angular ante cambios en las ramas `develop` y `main`, así como en los Pull Requests dirigidos a ellas.
 
-La aplicación tendrá como destino de publicación
-GitHub Pages.
+## Estructura principal
 
-## Autor
+```text
+src/
+└── app/
+    ├── core/
+    │   ├── models/
+    │   └── services/
+    ├── features/
+    │   └── tasks/
+    │       ├── components/
+    │       └── pages/
+    └── shared/
 
-Nombre del estudiante: [Tu nombre]
+.github/
+└── workflows/
+    └── ci.yml
 
-Curso: Ingeniería de Software 2
-Universidad Continental
+docs/
+```
+
+
+**Repositorio:** https://github.com/UDR1845/TaskFlow
