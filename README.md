@@ -1,59 +1,102 @@
-# TaskFlow
+# TaskFlow – Gestor de Tareas
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.0.
+**TaskFlow** es una aplicación web desarrollada con Angular que permite organizar actividades personales mediante la creación, consulta, edición y eliminación de tareas.
 
-## Development server
+El proyecto forma parte del Producto Académico N.º 1 de Ingeniería de Software II.
 
-To start a local development server, run:
+## Objetivo
+
+Desarrollar una aplicación web sencilla e intuitiva que facilite la organización y el seguimiento de tareas personales.
+
+## Funcionalidades
+
+- Registrar tareas con título, descripción y prioridad.
+- Visualizar las tareas registradas.
+- Editar información de las tareas.
+- Eliminar tareas.
+- Marcar tareas como pendientes o completadas.
+- Filtrar tareas por estado y prioridad.
+- Guardar información en LocalStorage para conservarla al recargar la página.
+
+## Tecnologías utilizadas
+
+- Angular 21.1.0
+- TypeScript
+- HTML5 y SCSS
+- Bootstrap 5
+- Bootstrap Icons
+- LocalStorage
+- Git y GitHub
+- GitHub Actions
+- GitHub Pages
+
+## Requisitos
+
+- Node.js compatible con Angular CLI.
+- npm.
+- Angular CLI 21.1.0.
+
+## Instalación
+
+Clonar el repositorio:
+
+```bash
+git clone https://github.com/UDR1845/TaskFlow.git
+cd TaskFlow
+```
+
+Instalar dependencias:
+
+```bash
+npm install
+```
+
+## Ejecución local
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Abrir en el navegador:
 
-## Code scaffolding
+`http://localhost:4200/`
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Compilación
 
 ```bash
-ng generate --help
+npm run build
 ```
 
-## Building
+Los archivos compilados se generan en el directorio `dist/`.
 
-To build the project run:
+## Persistencia
 
-```bash
-ng build
+La aplicación utiliza LocalStorage del navegador. No requiere un servidor ni una base de datos externa.
+
+## Integración continua
+
+GitHub Actions ejecuta automáticamente la instalación de dependencias y la compilación de Angular ante cambios en las ramas `develop` y `main`, así como en los Pull Requests dirigidos a ellas.
+
+## Estructura principal
+
+```text
+src/
+└── app/
+    ├── core/
+    │   ├── models/
+    │   └── services/
+    ├── features/
+    │   └── tasks/
+    │       ├── components/
+    │       └── pages/
+    └── shared/
+
+.github/
+└── workflows/
+    └── ci.yml
+
+docs/
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+**Repositorio:** https://github.com/UDR1845/TaskFlow

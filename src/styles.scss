@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/scss/bootstrap";
+
+body {
+  background-color: #f5f7fb;
+  font-family: 'Segoe UI', sans-serif;
+  color: #263248;
+}
+
+button {
+  cursor: pointer;
+}/* You can add global styles to this file, and also import other style files */
