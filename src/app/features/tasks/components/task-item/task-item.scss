@@ -1,0 +1,14 @@
+.task-card {
+  border-radius: 12px;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08) !important;
+  }
+}
+
+.form-check-input {
+  width: 19px;
+  height: 19px;
+  cursor: pointer;
+}

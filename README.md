@@ -1,59 +1,88 @@
-# TaskFlow
+# TaskFlow - Gestor de Tareas
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.0.
+Aplicación web desarrollada con Angular y Bootstrap que permite
+organizar actividades personales mediante el registro, edición,
+eliminación y seguimiento de tareas.
 
-## Development server
+## Tecnologías utilizadas
 
-To start a local development server, run:
+- Angular
+- TypeScript
+- Bootstrap 5
+- Bootstrap Icons
+- SCSS
+- LocalStorage
 
-```bash
-ng serve
-```
+## Funcionalidades
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Registrar nuevas tareas.
+- Consultar tareas registradas.
+- Editar información de las tareas.
+- Eliminar tareas.
+- Marcar tareas como completadas.
+- Filtrar por estado y prioridad.
+- Almacenar información en el navegador.
 
-## Code scaffolding
+## Requisitos previos
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Node.js
+- npm
+- Angular CLI
 
-```bash
-ng generate component component-name
-```
+## Instalación
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Clonar el repositorio:
 
-```bash
-ng generate --help
-```
+    git clone URL_DEL_REPOSITORIO
 
-## Building
+Ingresar al proyecto:
 
-To build the project run:
+    cd TaskFlow
 
-```bash
-ng build
-```
+Instalar dependencias:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+    npm install
 
-## Running unit tests
+## Ejecución
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Iniciar el servidor de desarrollo:
 
-```bash
-ng test
-```
+    ng serve
 
-## Running end-to-end tests
+Abrir en el navegador:
 
-For end-to-end (e2e) testing, run:
+    http://localhost:4200/
 
-```bash
-ng e2e
-```
+## Compilación
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+    ng build
 
-## Additional Resources
+## Almacenamiento
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+TaskFlow utiliza LocalStorage para conservar las tareas
+en el navegador del usuario.
+
+## Estructura general
+
+    src/
+      app/
+        core/
+          models/
+          services/
+        features/
+          tasks/
+            components/
+            pages/
+        shared/
+
+## Despliegue
+
+La aplicación tendrá como destino de publicación
+GitHub Pages.
+
+## Autor
+
+Nombre del estudiante: [Tu nombre]
+
+Curso: Ingeniería de Software 2
+Universidad Continental
