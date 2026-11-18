@@ -7,4 +7,5 @@ export interface Task {
   priority: TaskPriority;
   completed: boolean;
   createdAt: string;
+  dueDate: string | null;
 }

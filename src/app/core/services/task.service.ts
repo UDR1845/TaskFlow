@@ -18,7 +18,15 @@ export class TaskService {
     try {
       const stored = localStorage.getItem(this.storageKey);
 
-      return stored ? JSON.parse(stored) as Task[] : [];
+      if (!stored) return [];
+
+      const tasks = JSON.parse(stored) as Task[];
+
+      // Compatibilidad con tareas creadas antes de incorporar dueDate.
+      return tasks.map(task => ({
+        ...task,
+        dueDate: task.dueDate ?? null
+      }));
     } catch {
       return [];
     }
@@ -40,7 +48,6 @@ export class TaskService {
     };
 
     this.tasksSignal.update(tasks => [newTask, ...tasks]);
-
     this.saveTasks();
   }
 

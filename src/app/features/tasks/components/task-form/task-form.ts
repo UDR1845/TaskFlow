@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
+
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
+
 import { FormsModule } from '@angular/forms';
 import { Task, TaskPriority } from '../../../../core/models/task.model';
 
@@ -21,12 +30,14 @@ export class TaskForm implements OnChanges {
   title = '';
   description = '';
   priority: TaskPriority = 'Media';
+  dueDate = '';
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['task']) {
       this.title = this.task?.title ?? '';
       this.description = this.task?.description ?? '';
       this.priority = this.task?.priority ?? 'Media';
+      this.dueDate = this.task?.dueDate ?? '';
     }
   }
 
@@ -36,7 +47,8 @@ export class TaskForm implements OnChanges {
     this.save.emit({
       title: this.title.trim(),
       description: this.description.trim(),
-      priority: this.priority
+      priority: this.priority,
+      dueDate: this.dueDate || null
     });
   }
 }
