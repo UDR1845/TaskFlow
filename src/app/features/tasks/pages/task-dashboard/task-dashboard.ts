@@ -1,8 +1,11 @@
+
 import { Component, computed, inject, signal } from '@angular/core';
 import { TaskService } from '../../../../core/services/task.service';
 import { Task, TaskPriority } from '../../../../core/models/task.model';
 import { TaskForm } from '../../components/task-form/task-form';
 import { TaskList } from '../../components/task-list/task-list';
+
+type TaskSort = 'recent' | 'oldest' | 'priority' | 'dueDate';
 
 @Component({
   selector: 'app-task-dashboard',
@@ -23,6 +26,9 @@ export class TaskDashboard {
   filter = signal<'Todas' | 'Pendientes' | 'Completadas'>('Todas');
   priorityFilter = signal<'Todas' | TaskPriority>('Todas');
 
+  searchTerm = signal('');
+  sortOrder = signal<TaskSort>('recent');
+
   pendingTasks = computed(() =>
     this.tasks().filter(task => !task.completed).length
   );
@@ -31,8 +37,21 @@ export class TaskDashboard {
     this.tasks().filter(task => task.completed).length
   );
 
-  filteredTasks = computed(() => {
+  overdueTasks = computed(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     return this.tasks().filter(task => {
+      if (!task.dueDate || task.completed) return false;
+
+      return new Date(`${task.dueDate}T00:00:00`) < today;
+    }).length;
+  });
+
+  filteredTasks = computed(() => {
+    const search = this.searchTerm().trim().toLowerCase();
+
+    const result = this.tasks().filter(task => {
       const matchesStatus =
         this.filter() === 'Todas' ||
         (this.filter() === 'Pendientes' && !task.completed) ||
@@ -42,7 +61,39 @@ export class TaskDashboard {
         this.priorityFilter() === 'Todas' ||
         task.priority === this.priorityFilter();
 
-      return matchesStatus && matchesPriority;
+      const matchesSearch =
+        !search ||
+        task.title.toLowerCase().includes(search) ||
+        task.description.toLowerCase().includes(search);
+
+      return matchesStatus && matchesPriority && matchesSearch;
+    });
+
+    const priorityOrder: Record<TaskPriority, number> = {
+      Alta: 1,
+      Media: 2,
+      Baja: 3
+    };
+
+    return [...result].sort((a, b) => {
+      switch (this.sortOrder()) {
+        case 'oldest':
+          return new Date(a.createdAt).getTime() -
+                 new Date(b.createdAt).getTime();
+
+        case 'priority':
+          return priorityOrder[a.priority] - priorityOrder[b.priority];
+
+        case 'dueDate':
+          if (!a.dueDate) return 1;
+          if (!b.dueDate) return -1;
+          return a.dueDate.localeCompare(b.dueDate);
+
+        case 'recent':
+        default:
+          return new Date(b.createdAt).getTime() -
+                 new Date(a.createdAt).getTime();
+      }
     });
   });
 

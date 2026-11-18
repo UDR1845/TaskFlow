@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Task } from '../../../../core/models/task.model';
 import { DatePipe } from '@angular/common';
+import { Task } from '../../../../core/models/task.model';
 
 @Component({
   selector: 'app-task-item',
@@ -23,5 +23,16 @@ export class TaskItem {
       case 'Media': return 'bg-warning-subtle text-warning-emphasis';
       default: return 'bg-success-subtle text-success';
     }
+  }
+
+  get isOverdue(): boolean {
+    if (!this.task.dueDate || this.task.completed) return false;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const dueDate = new Date(`${this.task.dueDate}T00:00:00`);
+
+    return dueDate < today;
   }
 }

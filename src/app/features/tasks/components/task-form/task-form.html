@@ -13,7 +13,6 @@
 
       <div class="mb-3">
         <label class="form-label fw-semibold">Título *</label>
-
         <input
           type="text"
           class="form-control"
@@ -26,7 +25,6 @@
 
       <div class="mb-3">
         <label class="form-label fw-semibold">Descripción</label>
-
         <textarea
           class="form-control"
           name="description"
@@ -37,23 +35,31 @@
         </textarea>
       </div>
 
-      <div class="mb-4">
+      <div class="mb-3">
         <label class="form-label fw-semibold">Prioridad</label>
-
         <select
           class="form-select"
           name="priority"
           [(ngModel)]="priority">
-
           <option value="Baja">Baja</option>
           <option value="Media">Media</option>
           <option value="Alta">Alta</option>
-
         </select>
       </div>
 
-      <div class="d-flex justify-content-end gap-2">
+      <div class="mb-4">
+        <label class="form-label fw-semibold">Fecha límite</label>
+        <input
+          type="date"
+          class="form-control"
+          name="dueDate"
+          [(ngModel)]="dueDate">
+        <small class="text-muted">
+          Campo opcional. Indica cuándo debes completar la tarea.
+        </small>
+      </div>
 
+      <div class="d-flex justify-content-end gap-2">
         <button
           type="button"
           class="btn btn-light"
@@ -65,14 +71,10 @@
           type="submit"
           class="btn btn-primary px-4"
           [disabled]="taskForm.invalid">
-
           {{ task ? 'Guardar cambios' : 'Crear tarea' }}
-
         </button>
-
       </div>
 
     </form>
-
   </div>
 </div>
