@@ -20,23 +20,52 @@ export class TaskService {
 
       if (!stored) return [];
 
-      const tasks = JSON.parse(stored) as Task[];
+      const tasks: unknown = JSON.parse(stored);
 
-      // Compatibilidad con tareas creadas antes de incorporar dueDate.
-      return tasks.map(task => ({
+      if (!Array.isArray(tasks)) return [];
+
+      const isValidTask = (task: any): boolean => {
+        return (
+          task !== null &&
+          typeof task === 'object' &&
+          typeof task.id === 'string' &&
+          typeof task.title === 'string' &&
+          typeof task.description === 'string' &&
+          ['Baja', 'Media', 'Alta'].includes(task.priority) &&
+          typeof task.completed === 'boolean' &&
+          typeof task.createdAt === 'string' &&
+          (
+            task.dueDate === undefined ||
+            task.dueDate === null ||
+            (
+              typeof task.dueDate === 'string' &&
+              !isNaN(Date.parse(task.dueDate))
+            )
+          )
+        );
+      };
+
+      if (!tasks.every(isValidTask)) return [];
+
+      return tasks.map((task: Task) => ({
         ...task,
         dueDate: task.dueDate ?? null
       }));
+
     } catch {
       return [];
     }
   }
 
   private saveTasks(): void {
-    localStorage.setItem(
-      this.storageKey,
-      JSON.stringify(this.tasksSignal())
-    );
+    try {
+      localStorage.setItem(
+        this.storageKey,
+        JSON.stringify(this.tasksSignal())
+      );
+    } catch (error) {
+      console.error('No se pudieron guardar las tareas:', error);
+    }
   }
 
   addTask(data: Omit<Task, 'id' | 'completed' | 'createdAt'>): void {

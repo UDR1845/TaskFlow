@@ -119,4 +119,76 @@ describe('TaskService', () => {
 
     expect(service.tasks()).toEqual([]);
   });
+
+  it('debe manejar errores al guardar en LocalStorage', () => {
+    const storageSpy = vi
+      .spyOn(Storage.prototype, 'setItem')
+      .mockImplementation(() => {
+        throw new Error('Storage lleno');
+      });
+
+    expect(() => service.addTask(taskData)).not.toThrow();
+    expect(service.tasks()).toHaveLength(1);
+
+    storageSpy.mockRestore();
+  });
+
+  it('debe manejar datos con estructura incorrecta en LocalStorage', () => {
+    localStorage.setItem('taskflow.tasks', JSON.stringify({ title: 'Tarea inválida' }));
+
+    TestBed.resetTestingModule();
+
+    TestBed.configureTestingModule({
+      providers: [TaskService]
+    });
+
+    service = TestBed.inject(TaskService);
+
+    expect(service.tasks()).toEqual([]);
+  });
+
+  it('debe rechazar tareas sin los campos obligatorios', () => {
+    localStorage.setItem(
+      'taskflow.tasks',
+      JSON.stringify([{ title: 'Tarea incompleta' }])
+    );
+
+    TestBed.resetTestingModule();
+
+    TestBed.configureTestingModule({
+      providers: [TaskService]
+    });
+
+    service = TestBed.inject(TaskService);
+
+    expect(service.tasks()).toEqual([]);
+  });
+
+  it('debe rechazar tareas con fechas límite inválidas', () => {
+    const invalidTask = {
+      id: '123',
+      title: 'Tarea de prueba',
+      description: 'Descripción',
+      priority: 'Alta',
+      completed: false,
+      createdAt: new Date().toISOString(),
+      dueDate: 'fecha-invalida'
+    };
+
+    localStorage.setItem(
+      'taskflow.tasks',
+      JSON.stringify([invalidTask])
+    );
+
+    TestBed.resetTestingModule();
+
+    TestBed.configureTestingModule({
+      providers: [TaskService]
+    });
+
+    service = TestBed.inject(TaskService);
+
+    expect(service.tasks()).toEqual([]);
+  });
+
 });
